@@ -19,6 +19,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getErrorMessage } from "@/app/common/utils/errors";
 import DynamicFormField from "../forms/dynamic-form-field";
+import { useCreateUser } from "@/hooks/use-create-user";
 
 const AuthSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -31,9 +32,9 @@ const AuthForm = ({
   type = "login",
   description = "Create your account now",
   title = "Get Started",
-  successMessage = "L'utilisateur a été créer avec succèss.",
-  errorMessage = "Une erreur est survenue lors de la soumission.",
-  buttonLabel = "Créer mon compte",
+  successMessage = "User created successfully!",
+  errorMessage = "An error occurred while creating user!",
+  buttonLabel = "Create Account",
 }) => {
   const form = useForm<AuthFormData>({
     resolver: zodResolver(AuthSchema),
@@ -42,45 +43,28 @@ const AuthForm = ({
       password: "",
     },
   });
+  const { createUser, data, loading, error } = useCreateUser();
   const router = useRouter();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
   async function onSubmit(data: AuthFormData) {
-    setIsLoading(true);
+    console.log("🚀 ~ onSubmit ~ data:", data);
+    await createUser({ email: data.email, password: data.password });
+
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_AUTH_ENDPOINT}/${type}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json", // Définir le type de contenu
-          },
-          body: JSON.stringify(data),
-          credentials: "include",
-        }
-      );
+      const newUser = await createUser({
+        email: data.email,
+        password: data.password,
+      });
 
-      const result = await res.json();
-
-      if (!res.ok) {
-        setError(getErrorMessage(result));
-        // setError(result.message);
-        alert(`Erreur: ${getErrorMessage(result)}`);
-        // alert(`Erreur: ${result.message}`);
-        return;
+      if (newUser) {
+        alert(successMessage);
+        console.log("🚀 ~ onSubmit ~ newUser:", newUser);
+        form.reset();
+        // router.push("/");
       }
-
-      setSuccess(successMessage);
-      alert("L'utilisateur a été créer avec succèss");
-      router.push("/");
     } catch (error) {
-      console.log("🚀 ~ onSubmit ~ error:ERROR", error);
-      setError(errorMessage);
-    } finally {
-      setIsLoading(false);
+      alert(errorMessage);
+      console.error("Error creating user:", error);
     }
   }
 
@@ -100,7 +84,7 @@ const AuthForm = ({
               label="Email"
               placeholder="Email"
               type="text"
-              disabled={isLoading}
+              disabled={loading}
             />
             <DynamicFormField
               inputType="input"
@@ -109,15 +93,15 @@ const AuthForm = ({
               label="Password"
               placeholder="Password"
               type="password"
-              disabled={isLoading}
+              disabled={loading}
             />
             <Button
               type="submit"
               className="w-full"
               size="lg"
-              disabled={isLoading}
+              disabled={loading}
             >
-              {isLoading ? (
+              {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
                 buttonLabel
