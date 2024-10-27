@@ -19,3 +19,5 @@
 - add graphql appollo provider
 
 ### 5. Nestjs Authentication (Passport & Local Strategy)
+
+### 6. Nestjs Authentication (JWT Strategy)
