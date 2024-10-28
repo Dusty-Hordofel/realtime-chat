@@ -1,8 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -14,59 +11,29 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import AuthInput from "./auth-input";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { getErrorMessage } from "@/app/common/utils/errors";
+
 import DynamicFormField from "../forms/dynamic-form-field";
-import { useCreateUser } from "@/hooks/use-create-user";
 
-const AuthSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
-
-type AuthFormData = z.infer<typeof AuthSchema>;
+import { useGetMe } from "@/hooks/use-get-me";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const AuthForm = ({
-  type = "login",
-  description = "Create your account now",
+  form,
+  loading,
+  onSubmit,
   title = "Get Started",
-  successMessage = "User created successfully!",
-  errorMessage = "An error occurred while creating user!",
   buttonLabel = "Create Account",
-}) => {
-  const form = useForm<AuthFormData>({
-    resolver: zodResolver(AuthSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-  const { createUser, data, loading, error } = useCreateUser();
+  description = "Create your account now",
+}: any) => {
   const router = useRouter();
+  const { user } = useGetMe();
 
-  async function onSubmit(data: AuthFormData) {
-    console.log("🚀 ~ onSubmit ~ data:", data);
-    await createUser({ email: data.email, password: data.password });
-
-    try {
-      const newUser = await createUser({
-        email: data.email,
-        password: data.password,
-      });
-
-      if (newUser) {
-        alert(successMessage);
-        console.log("🚀 ~ onSubmit ~ newUser:", newUser);
-        form.reset();
-        // router.push("/");
-      }
-    } catch (error) {
-      alert(errorMessage);
-      console.error("Error creating user:", error);
+  useEffect(() => {
+    if (user) {
+      router.push("/");
     }
-  }
+  }, [user]);
 
   return (
     <Card className="w-full max-w-md mx-auto">

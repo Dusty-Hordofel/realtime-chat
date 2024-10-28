@@ -21,3 +21,7 @@
 ### 5. Nestjs Authentication (Passport & Local Strategy)
 
 ### 6. Nestjs Authentication (JWT Strategy)
+
+### 7. Nestjs Authentication ( GQL Auth Guard)
+
+### 8. Mise à jour des formulaires d'authentification et d'enregistrement
