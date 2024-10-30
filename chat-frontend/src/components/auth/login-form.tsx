@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import AuthForm from "./auth-form";
-import { useLoginUser } from "@/hooks/use-login-user";
+import { useLoginUser } from "@/hooks/auth/use-login-user";
 import { AuthFormData, AuthSchema } from "@/schemas/auth";
 
 const LoginForm = () => {
@@ -18,6 +18,7 @@ const LoginForm = () => {
   const { login, loading } = useLoginUser();
 
   async function onSubmit(data: AuthFormData) {
+    console.log("🚀 ~ onSubmit ~ data:", data);
     await login({ email: data.email, password: data.password });
     form.reset();
   }

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Logo from "./logo";
-import { useGetUser } from "@/hooks/use-get-user";
+import { useGetUser } from "@/hooks/auth/use-get-user";
 import UserButton from "./user-button";
 
 export type NavLink = {

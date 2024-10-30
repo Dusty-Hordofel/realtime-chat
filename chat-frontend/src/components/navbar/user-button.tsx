@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLogoutUser } from "@/hooks/use-logout-user";
+import { useLogoutUser } from "@/hooks/auth/use-logout-user";
 import client from "@/lib/apollo-client";
 
 const UserButton = ({ user }: any) => {

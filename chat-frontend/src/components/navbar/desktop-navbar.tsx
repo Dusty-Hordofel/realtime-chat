@@ -2,7 +2,7 @@
 import NavbarLinks from "./navbar-links";
 import UserButton from "./user-button";
 import Logo from "./logo";
-import { useGetUser } from "@/hooks/use-get-user";
+import { useGetUser } from "@/hooks/auth/use-get-user";
 
 export type NavLink = {
   name: string;

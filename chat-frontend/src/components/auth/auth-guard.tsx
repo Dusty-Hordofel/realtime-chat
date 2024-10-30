@@ -1,6 +1,6 @@
 "use client";
 import { unauthenticatedRoutes } from "@/app/common/constants/routes";
-import { useGetUser } from "@/hooks/use-get-user";
+import { useGetUser } from "@/hooks/auth/use-get-user";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 

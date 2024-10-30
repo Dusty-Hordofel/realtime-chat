@@ -14,7 +14,7 @@ import {
 
 import DynamicFormField from "../forms/dynamic-form-field";
 
-import { useGetUser } from "@/hooks/use-get-user";
+import { useGetUser } from "@/hooks/auth/use-get-user";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 

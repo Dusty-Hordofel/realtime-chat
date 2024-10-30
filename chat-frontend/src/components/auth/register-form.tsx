@@ -4,9 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import AuthForm from "./auth-form";
-import { useCreateUser } from "@/hooks/use-create-user";
+import { useCreateUser } from "@/hooks/auth/use-create-user";
 import { AuthFormData, AuthSchema } from "@/schemas/auth";
-import { useLoginUser } from "@/hooks/use-login-user";
+import { useLoginUser } from "@/hooks/auth/use-login-user";
 
 const RegisterForm = () => {
   const form = useForm<AuthFormData>({
