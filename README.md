@@ -26,4 +26,8 @@
 
 ### 8. Mise à jour des formulaires d'authentification et d'enregistrement
 
-### 9. Gestion du dropdown menu et de l'authentification
+### 9. Gestion du dropdown menu et de l'authentification (fusion)
+
+## Section 3: Chat UI
+
+### 10. Chat Sidebar
