@@ -1,18 +1,18 @@
 "use client";
 import { unauthenticatedRoutes } from "@/app/common/constants/routes";
-import { useGetMe } from "@/hooks/use-get-me";
+import { useGetUser } from "@/hooks/use-get-user";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-type GuardProps = {
+type AuthGuardProps = {
   children: React.ReactNode;
 };
 
-const Guard = ({ children }: GuardProps) => {
+const AuthGuard = ({ children }: AuthGuardProps) => {
   const [isUnauthorizedRoute, setIsUnauthorizedRoute] = useState(false);
   const pathname = usePathname(); // Obtenez le pathname actuel
 
-  const { user } = useGetMe();
+  const { user } = useGetUser();
 
   useEffect(() => {
     if (unauthenticatedRoutes.includes(pathname)) {
@@ -23,4 +23,4 @@ const Guard = ({ children }: GuardProps) => {
   return <>{isUnauthorizedRoute ? children : user && children}</>;
 };
 
-export default Guard;
+export default AuthGuard;

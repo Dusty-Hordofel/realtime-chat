@@ -14,7 +14,7 @@ import {
 
 import DynamicFormField from "../forms/dynamic-form-field";
 
-import { useGetMe } from "@/hooks/use-get-me";
+import { useGetUser } from "@/hooks/use-get-user";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -27,7 +27,7 @@ const AuthForm = ({
   description = "Create your account now",
 }: any) => {
   const router = useRouter();
-  const { user } = useGetMe();
+  const { user } = useGetUser();
 
   useEffect(() => {
     if (user) {

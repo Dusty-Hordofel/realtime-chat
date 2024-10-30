@@ -2,7 +2,7 @@
 import { GET_ME } from "@/graphql/user/queries";
 import { useQuery } from "@apollo/client";
 
-export const useGetMe = () => {
+export const useGetUser = () => {
   const { loading, error, data } = useQuery(GET_ME);
 
   if (loading) return { loading, user: null };

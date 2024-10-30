@@ -25,3 +25,5 @@
 ### 7. Nestjs Authentication ( GQL Auth Guard)
 
 ### 8. Mise à jour des formulaires d'authentification et d'enregistrement
+
+### 9. Gestion du dropdown menu et de l'authentification

@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import ApolloProvider from "@/components/providers/apollo-provider";
-import Guard from "@/components/auth/guard";
+import AuthGuard from "@/components/auth/auth-guard";
+import { Navbar } from "@/components/navbar/navbar";
+import { userNavLinksData } from "@/components/navbar/data/user-nav-links-data";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,7 +33,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ApolloProvider>
-          <Guard>{children}</Guard>
+          <AuthGuard>
+            {/* <Navbar navLinks={userNavLinksData} /> */}
+            {children}
+          </AuthGuard>
         </ApolloProvider>
       </body>
     </html>
