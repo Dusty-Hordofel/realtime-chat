@@ -5,6 +5,7 @@ import ApolloProvider from "@/components/providers/apollo-provider";
 import AuthGuard from "@/components/auth/auth-guard";
 import { Navbar } from "@/components/navbar/navbar";
 import { userNavLinksData } from "@/components/navbar/data/user-nav-links-data";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,12 +33,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ApolloProvider>
-          <AuthGuard>
-            {/* <Navbar navLinks={userNavLinksData} /> */}
-            {children}
-          </AuthGuard>
-        </ApolloProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <ApolloProvider>
+            <AuthGuard>
+              {/* <Navbar navLinks={userNavLinksData} /> */}
+              {children}
+            </AuthGuard>
+          </ApolloProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

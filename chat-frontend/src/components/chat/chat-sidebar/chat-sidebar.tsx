@@ -4,33 +4,39 @@ import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ChatSidebarHeader from "./chat-sidebar-header";
-import { ChatSidebarProps } from "../../@types/user.interfaces";
+import { ChatSidebarProps } from "../../../@types/user.interfaces";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "../../lib/utils";
+import { cn } from "../../../lib/utils";
 
 const ChatSidebar = ({ chats, isCollapsed }: ChatSidebarProps) => {
   return (
-    <>
-      <ChatSidebarHeader chats={chats} />
-      <nav className="grid px-2">
+    <div className="h-full">
+      {!isCollapsed && <ChatSidebarHeader chats={chats} />}
+      <nav className="grid p-2">
         {chats.map((chat) => {
           const lastMessage = chat.messages[chat.messages.length - 1];
           return isCollapsed ? (
             <TooltipProvider key={chat.id}>
               <Tooltip key={chat.id}>
                 <TooltipTrigger asChild>
-                  <Link href={`/messges/${chat.id}`}>
+                  <Link
+                    href={`/messges/${chat.id}`}
+                    className={`p-2 rounded-lg flex  gap-4 h-20   justify-center items-center ${
+                      chats[0].id === chat.id && "bg-blue-100/60"
+                    } ${chats[0].id !== chat.id && "hover:bg-gray-200"}`}
+                  >
                     <Avatar>
                       <AvatarImage
                         src={chat.avatar}
                         alt={chat.avatar}
                         width={6}
                         height={6}
+                        className="w-10 h-10"
                       />
                       <AvatarFallback>CN</AvatarFallback>
                       <span className="sr-only">{chat.name}</span>
@@ -43,7 +49,7 @@ const ChatSidebar = ({ chats, isCollapsed }: ChatSidebarProps) => {
           ) : (
             <Link
               key={chat.id}
-              href={`/messges/${chat.id}`}
+              href={`/messages/${chat.id}`}
               className={cn(
                 `${chats[0].id === chat.id && "bg-blue-100/60"} ${
                   chats[0].id !== chat.id && "hover:bg-gray-200"
@@ -57,7 +63,7 @@ const ChatSidebar = ({ chats, isCollapsed }: ChatSidebarProps) => {
                     alt={chat.avatar}
                     width={6}
                     height={6}
-                    className="w-10 h-10 "
+                    className="w-10 h-10"
                   />
                 </Avatar>
               </div>
@@ -74,7 +80,7 @@ const ChatSidebar = ({ chats, isCollapsed }: ChatSidebarProps) => {
           );
         })}
       </nav>
-    </>
+    </div>
   );
 };
 

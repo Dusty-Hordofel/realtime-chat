@@ -1,30 +1,18 @@
-"use client";
-import Image from "next/image";
-
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
-import ChatSidebar from "@/components/chat/chat-sidebar";
-import { userData } from "./data/user-data";
-import { useFormattedUserData } from "@/hooks/chats/use-formatted-user-data";
-import React from "react";
+import { cookies } from "next/headers";
+import ChatLayout from "./page copy";
 
 export default function Home() {
-  const [selectedUser, setSelectedUser] = React.useState(userData[0]);
-  const [isCollapsed, setIsCollapsed] = React.useState(false);
-
-  const formattedUserData = useFormattedUserData(userData, selectedUser);
+  const layout = cookies().get("react-resizable-panels:layout");
+  const defaultLayout = layout ? JSON.parse(layout.value) : undefined;
 
   return (
-    <div className="w-96">
-      <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel>One</ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel>Two</ResizablePanel>
-      </ResizablePanelGroup>
-      <ChatSidebar chats={formattedUserData} isCollapsed={isCollapsed} />
-    </div>
+    <main className="flex h-[calc(100dvh)] flex-col items-center justify-center p-4 md:px-24 py-32 gap-4">
+      <div className="w-full h-full">
+        {/* max-w-5xl */}
+        <div className="z-10 border rounded-lg w-full h-full text-sm flex overflow-hidden">
+          <ChatLayout defaultLayout={defaultLayout} navCollapsedSize={8} />
+        </div>
+      </div>
+    </main>
   );
 }

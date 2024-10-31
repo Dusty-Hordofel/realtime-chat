@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import ChatSidebarHeader from "../chat/chat-sidebar-header";
+import ChatSidebarHeader from "../chat/chat-sidebar/chat-sidebar-header";
 import { ChatSidebarProps } from "../../@types/user.interfaces";
 import {
   Tooltip,
